@@ -19,4 +19,7 @@ http://localhost:3977/api/v1/usuario
     "Perfil":"6027b80f2e553fccaeb5560f",
     "UsuCrea":"6027f66a57ce93d65b089614"
 }
+
+3 Listar Perfiles => GET
+http://localhost:3977/api/v1/perfil
 -->
