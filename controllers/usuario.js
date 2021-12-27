@@ -38,6 +38,59 @@ function loginUsuario(req, res) {
   }
 }
 
+function insUsuario(req, res) {
+  var usuario = new Usuario();
+  var params = req.body;
+
+  usuario._id = new ObjectId();
+  usuario.nombres = params.Nombres;
+  usuario.movil = params.Movil;
+  usuario.clave = params.Clave;
+  usuario.email = params.Email.toLowerCase();
+  usuario.perfil = mongoose.Types.ObjectId(params.Perfil);
+  usuario.estado = true;
+  usuario.feCrea = new Date();
+  usuario.usuCrea = mongoose.Types.ObjectId(params.UsuCrea);
+  usuario.feActualiza = null;
+  usuario.usuActualiza = null;
+
+  if (usuario.nombres != null) {
+      try {
+          usuario.save((err, usuarioStored) => {
+              if (err) {
+                  res.status(500).send({
+                      message: "Error al guardar el usuario",
+                      detail: JSON.stringify(err),
+                  });
+              } else {
+                  if (!usuarioStored) {
+                      res
+                          .status(404)
+                          .send({ message: "No se ha registrado el usuario", detail: "" });
+                  } else {
+                      usuarioStored.populate("perfil", function (err) {
+                          rpta = getConvert(usuarioStored);
+                          res
+                              .status(200)
+                              .send({ usuario: rpta, token: jwt.createToken(usuario) });
+                      });
+                  }
+              }
+          });
+      } catch (err) {
+          res.status(500).send({
+              message: "Error al guardar el usuario",
+              detail: JSON.stringify(err),
+          });
+      }
+  } else {
+      res.status(400).send({
+          message: "Ingresar todos los campos, Nombres, Email",
+      });
+  }
+}
+
+
 //#region [Util]
 // Formatea
 function getConvert(item) {
@@ -59,4 +112,5 @@ function getConvert(item) {
 
 module.exports = {
   loginUsuario,
+  insUsuario,
 };
