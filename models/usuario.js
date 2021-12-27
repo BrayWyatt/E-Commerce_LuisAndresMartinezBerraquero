@@ -11,7 +11,6 @@ var UsuarioSchema = Schema(
     movil: String,
     clave: String,
     email: String,
-    uid: String,
     perfil: { type: Schema.ObjectId, ref: "Perfil" },
 
     estado: Boolean,
@@ -24,3 +23,4 @@ var UsuarioSchema = Schema(
 );
 
 module.exports = mongoose.model("Usuario", UsuarioSchema);
+1
