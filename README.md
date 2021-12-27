@@ -22,4 +22,21 @@ http://localhost:3977/api/v1/usuario
 
 3 Listar Perfiles => GET
 http://localhost:3977/api/v1/perfil
+Headers:
+Authorization: token......
+
+4 UPDATE USUARIO => PUT
+http://localhost:3977/api/v1/usuario
+Headers:
+Authorization: token......
+{
+    "Nombres": "PRS03",
+    "Movil":"987654323",
+    "Clave":"11111",
+    "Email":"PRS03@GMAIL.COM",
+    "Perfil":"6027b80f2e553fccaeb5560f",
+    "UsuActualiza":"6027f66a57ce93d65b089614"
+}
+
+TOKEN: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjYxYzliOGE5MTE3ZDRhMDA4OTFjYmQyYSIsIm5vbWJyZXMiOiJQUlMwMSIsIm1vdmlsIjoiOTg3NjU0MzIxIiwiZW1haWwiOiJwcnMwMUBnbWFpbC5jb20iLCJpYXQiOjE2NDA2MDk5NjEsImV4cCI6MTY0MDY5NjM2MX0.pex8v74AP7Fm0QhGpD21QXvPJxe82C5k4M0ZWgaTDyw
 -->

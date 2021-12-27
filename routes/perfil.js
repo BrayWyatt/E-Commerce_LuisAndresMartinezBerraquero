@@ -1,9 +1,10 @@
-'use strict'
+"use strict";
 
-var express = require('express');
-var PerfilController = require('../controllers/perfil');
+var express = require("express");
+var PerfilController = require("../controllers/perfil");
+const md_auth = require('../middlewares/authenticated');
 
 var api = express.Router();
-api.get('', PerfilController.listPerfil);
+api.get("", md_auth.ensureAuth, PerfilController.listPerfil);
 
 module.exports = api;
