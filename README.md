@@ -47,6 +47,7 @@ Authorization: token......
     "Descripcion": "Teclado Marca Logitech",
     "Precio": 55,
     "Categoria":  "61ca84ae8278676464bf627c",
+    "Vendedor":"61caecd1fee8ee46ec8837c7",
     "Vendido": 1,
     "UsuCrea":"6027f66a57ce93d65b089614"
 }
@@ -63,6 +64,7 @@ Authorization: token......
     "Descripcion": "Teclado Marca Logitech PRS02",
     "Precio": 85,
     "Categoria":  "61ca84ae8278676464bf627c",
+    "Vendedor":"61caecd1fee8ee46ec8837c7",
     "Vendido": 2,
     "UsuActualiza":"6027f66a57ce93d65b089614"
 }
@@ -82,9 +84,13 @@ http://localhost:3977/api/v1/producto/true/85/Teclado/Teclado
 Headers:
 Authorization: token......
 
+10 List Productos by Vendedor => GET
+http://localhost:3977/api/v1/producto/vendedor/61caecd1fee8ee46ec8837c7
+Headers:
+Authorization: token......
 
 11 List Productos by Categoria => GET
-http://localhost:3977/api/v1/producto/61ca84ae8278676464bf627c
+http://localhost:3977/api/v1/producto/categoria/61ca84ae8278676464bf627c
 Headers:
 Authorization: token......
 

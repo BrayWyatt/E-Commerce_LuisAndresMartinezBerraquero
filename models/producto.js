@@ -11,8 +11,8 @@ var ProductoSchema = Schema(
     descripcion: String,
     precio: Number,
     categoria: { type: Schema.ObjectId, ref: "Categoria" },
+    vendedor: { type: Schema.ObjectId, ref: "Vendedor" },
     vendido: Number,
-
     estado: Boolean,
     feCrea: Date,
     usuCrea: { type: Schema.ObjectId, ref: "Usuario" },
@@ -23,4 +23,3 @@ var ProductoSchema = Schema(
 );
 
 module.exports = mongoose.model("Producto", ProductoSchema);
-1

@@ -6,21 +6,33 @@ var listRpta;
 var rpta;
 var mongoose = require("mongoose");
 var ObjectId = require("mongodb").ObjectID;
+require("../models/vendedor");
 
 function listProducto(req, res) {
-  Producto.find().exec((err, producto) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send({ message: JSON.stringify(err) });
-    } else {
-      if (!producto) {
-        res.status(404).send({ message: "No hay lista de productos" });
+  Producto.find()
+    .populate([
+      {
+        path: "categoria",
+        models: "Categoria",
+      },
+      {
+        path: "vendedor",
+        models: "Vendedor",
+      },
+    ])
+    .exec((err, producto) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send({ message: JSON.stringify(err) });
       } else {
-        rpta = listConvert(producto);
-        res.status(200).send({ rpta });
+        if (!producto) {
+          res.status(404).send({ message: "No hay lista de productos" });
+        } else {
+          rpta = listConvert(producto);
+          res.status(200).send({ rpta });
+        }
       }
-    }
-  });
+    });
 }
 
 function insProducto(req, res) {
@@ -32,6 +44,7 @@ function insProducto(req, res) {
   producto.descripcion = params.Descripcion;
   producto.precio = params.Precio;
   producto.categoria = mongoose.Types.ObjectId(params.Categoria);
+  producto.vendedor = mongoose.Types.ObjectId(params.Vendedor);
   producto.vendido = params.Vendido;
 
   producto.estado = true;
@@ -83,6 +96,7 @@ function updProducto(req, res) {
   producto.descripcion = params.Descripcion;
   producto.precio = params.Precio;
   producto.categoria = mongoose.Types.ObjectId(params.Categoria);
+  producto.vendedor = mongoose.Types.ObjectId(params.Vendedor);
   producto.vendido = params.Vendido;
   producto.feActualiza = new Date();
   producto.usuActualiza = mongoose.Types.ObjectId(params.UsuActualiza);
@@ -142,19 +156,30 @@ function listProductoByCategoria(req, res) {
 
   Producto.find({
     categoria: mongoose.Types.ObjectId(idCategoria),
-  }).exec((err, producto) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send({ message: JSON.stringify(err) });
-    } else {
-      if (!producto) {
-        res.status(404).send({ message: "No hay lista de productos" });
+  })
+    .populate([
+      {
+        path: "categoria",
+        models: "Categoria",
+      },
+      {
+        path: "vendedor",
+        models: "Vendedor",
+      },
+    ])
+    .exec((err, producto) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send({ message: JSON.stringify(err) });
       } else {
-        rpta = listConvert(producto);
-        res.status(200).send({ rpta });
+        if (!producto) {
+          res.status(404).send({ message: "No hay lista de productos" });
+        } else {
+          rpta = listConvert(producto);
+          res.status(200).send({ rpta });
+        }
       }
-    }
-  });
+    });
 }
 
 function listProductoFiltro(req, res) {
@@ -192,6 +217,10 @@ function listProductoFiltro(req, res) {
         path: "categoria",
         models: "Categoria",
       },
+      {
+        path: "vendedor",
+        models: "Vendedor",
+      },
     ])
     .sort(mySort)
     .exec((err, producto) => {
@@ -210,6 +239,38 @@ function listProductoFiltro(req, res) {
       }
     });
 }
+
+function listProductoByVendedor(req, res) {
+  var idVendedor = req.params.idVendedor;
+
+  Producto.find({
+    vendedor: mongoose.Types.ObjectId(idVendedor),
+  })
+    .populate([
+      {
+        path: "categoria",
+        models: "Categoria",
+      },
+      {
+        path: "vendedor",
+        models: "Vendedor",
+      },
+    ])
+    .exec((err, producto) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send({ message: JSON.stringify(err) });
+      } else {
+        if (!producto) {
+          res.status(404).send({ message: "No hay lista de productos" });
+        } else {
+          rpta = listConvert(producto);
+          res.status(200).send({ rpta });
+        }
+      }
+    });
+}
+
 //#region [Util]
 // Formateando
 function listConvert(items) {
@@ -227,6 +288,7 @@ function getConvert(item) {
   objRpta.Descripcion = item.descripcion;
   objRpta.Precio = item.precio;
   objRpta.Categoria = item.categoria;
+  objRpta.Vendedor = item.vendedor;
   objRpta.Vendido = item.vendido;
   objRpta.Estado = item.estado;
   objRpta.FeCrea = item.feCrea;
@@ -243,4 +305,5 @@ module.exports = {
   delProducto,
   listProductoByCategoria,
   listProductoFiltro,
+  listProductoByVendedor,
 };
