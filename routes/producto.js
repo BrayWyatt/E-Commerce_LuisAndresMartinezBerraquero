@@ -9,5 +9,6 @@ api.get("", md_auth.ensureAuth, ProductoController.listProducto);
 api.post("/", ProductoController.insProducto);
 api.put("/:id", md_auth.ensureAuth, ProductoController.updProducto);
 api.delete('/:idProducto/:idUsuario', ProductoController.delProducto);
+api.get("/:idCategoria", md_auth.ensureAuth, ProductoController.listProductoByCategoria);
 
 module.exports = api;

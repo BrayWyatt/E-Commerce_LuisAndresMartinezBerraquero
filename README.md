@@ -50,12 +50,33 @@ Authorization: token......
     "Vendido": 1,
     "UsuCrea":"6027f66a57ce93d65b089614"
 }
+6 DEL Producto => DEL
+http://localhost:3977/api/v1/producto/61ca8d3c6be0a40585ca8228/6027f66a57ce93d65b089614
+Headers:
+Authorization: token......
+
+7 UPD Producto => PUT
+Headers:
+Authorization: token......
+{
+    "Titulo": "Teclado PRSS02",
+    "Descripcion": "Teclado Marca Logitech PRS02",
+    "Precio": 85,
+    "Categoria":  "61ca84ae8278676464bf627c",
+    "Vendido": 2,
+    "UsuActualiza":"6027f66a57ce93d65b089614"
+}
+
 
 8 List Productos => GET
 http://localhost:3977/api/v1/producto
 Headers:
 Authorization: token......
 
+11 List Productos by Categoria => GET
+http://localhost:3977/api/v1/producto/61ca84ae8278676464bf627c
+Headers:
+Authorization: token......
 
 12 List Categorias => GET
 http://localhost:3977/api/v1/categoria

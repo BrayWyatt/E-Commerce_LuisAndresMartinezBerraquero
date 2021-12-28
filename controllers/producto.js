@@ -75,66 +75,88 @@ function insProducto(req, res) {
 }
 
 function updProducto(req, res) {
-    var idProducto = req.params.id;
-    var params = req.body;
-  
-    var producto = new Producto();
-    producto.titulo = params.Titulo;
-    producto.descripcion = params.Descripcion;
-    producto.precio = params.Precio;
-    producto.categoria = mongoose.Types.ObjectId(params.Categoria);
-    producto.vendido = params.Vendido;
-    producto.feActualiza = new Date();
-    producto.usuActualiza = mongoose.Types.ObjectId(params.UsuActualiza);
-  
-    if (producto.titulo != null && producto.descripcion != null) {
-      Producto.findByIdAndUpdate(idProducto, producto, (err, productoUpdated) => {
-        if (err) {
-          res.status(500).send({
-            message: "Error al actualizar el producto",
-            detail: JSON.stringify(err),
+  var idProducto = req.params.id;
+  var params = req.body;
+
+  var producto = new Producto();
+  producto.titulo = params.Titulo;
+  producto.descripcion = params.Descripcion;
+  producto.precio = params.Precio;
+  producto.categoria = mongoose.Types.ObjectId(params.Categoria);
+  producto.vendido = params.Vendido;
+  producto.feActualiza = new Date();
+  producto.usuActualiza = mongoose.Types.ObjectId(params.UsuActualiza);
+
+  if (producto.titulo != null && producto.descripcion != null) {
+    Producto.findByIdAndUpdate(idProducto, producto, (err, productoUpdated) => {
+      if (err) {
+        res.status(500).send({
+          message: "Error al actualizar el producto",
+          detail: JSON.stringify(err),
+        });
+      } else {
+        if (!productoUpdated) {
+          res.status(404).send({
+            message: "No se ha actualizado el producto",
+            detail: "",
           });
         } else {
-          if (!productoUpdated) {
-            res.status(404).send({
-              message: "No se ha actualizado el producto",
-              detail: "",
-            });
-          } else {
-            res.status(204).send();
-          }
+          res.status(204).send();
         }
-      });
-    }
+      }
+    });
   }
-  
-  function delProducto(req, res) {
-    var idProducto = req.params.idProducto;
-    var idUsuario = req.params.idUsuario;
-
-    var producto = new Producto();
-    try {
-        producto._id = mongoose.Types.ObjectId(idProducto);
-        producto.estado = false;
-        producto.feActualiza = new Date();
-        producto.usuActualiza = mongoose.Types.ObjectId(idUsuario);
-
-        Producto.findByIdAndUpdate({ _id: producto._id }, producto)
-            .then((producto, err) => {
-                if (err) {
-                    res.status(500).send({ message: JSON.stringify(err) });
-                } else {
-                    res.status(204).send();
-                }
-            });
-    } catch (err) {
-        console.log(err);
-        res.status(500).send({
-            message: "Error al guardar el producto",
-            detail: JSON.stringify(err),
-        });
-    }
 }
+
+function delProducto(req, res) {
+  var idProducto = req.params.idProducto;
+  var idUsuario = req.params.idUsuario;
+
+  var producto = new Producto();
+  try {
+    producto._id = mongoose.Types.ObjectId(idProducto);
+    producto.estado = false;
+    producto.feActualiza = new Date();
+    producto.usuActualiza = mongoose.Types.ObjectId(idUsuario);
+
+    Producto.findByIdAndUpdate({ _id: producto._id }, producto).then(
+      (producto, err) => {
+        if (err) {
+          res.status(500).send({ message: JSON.stringify(err) });
+        } else {
+          res.status(204).send();
+        }
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({
+      message: "Error al guardar el producto",
+      detail: JSON.stringify(err),
+    });
+  }
+}
+
+function listProductoByCategoria(req, res) {
+  var idCategoria = req.params.idCategoria;
+
+  Producto.find({
+    categoria: mongoose.Types.ObjectId(idCategoria)
+  }).exec((err, producto) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send({ message: JSON.stringify(err) });
+    } else {
+      if (!producto) {
+        res.status(404).send({ message: "No hay lista de productos" });
+      } else {
+        rpta = listConvert(producto);
+        res.status(200).send({ rpta });
+      }
+    }
+  });
+}
+
 //#region [Util]
 // Formateando
 function listConvert(items) {
@@ -162,8 +184,9 @@ function getConvert(item) {
 }
 
 module.exports = {
-  listProducto: listProducto,
+  listProducto,
   insProducto,
   updProducto,
   delProducto,
+  listProductoByCategoria,
 };
