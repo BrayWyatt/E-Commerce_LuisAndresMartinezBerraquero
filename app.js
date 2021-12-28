@@ -7,6 +7,7 @@ var app = express();
 
 var usuario_routes = require('./routes/usuario');
 var perfil_routes = require('./routes/perfil');
+var categoria_routes = require('./routes/categoria');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -21,5 +22,6 @@ app.use((req, res, next) => {
 
 app.use('/api/v1/usuario', usuario_routes);
 app.use('/api/v1/perfil', perfil_routes);
+app.use('/api/v1/categoria', categoria_routes);
 
 module.exports = app;
