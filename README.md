@@ -38,5 +38,16 @@ Authorization: token......
     "UsuActualiza":"6027f66a57ce93d65b089614"
 }
 
+8 List Productos => GET
+http://localhost:3977/api/v1/producto
+Headers:
+Authorization: token......
+
+
+12 List Categorias => GET
+http://localhost:3977/api/v1/categoria
+Headers:
+Authorization: token......
+
 TOKEN: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjYxYzliOGE5MTE3ZDRhMDA4OTFjYmQyYSIsIm5vbWJyZXMiOiJQUlMwMSIsIm1vdmlsIjoiOTg3NjU0MzIxIiwiZW1haWwiOiJwcnMwMUBnbWFpbC5jb20iLCJpYXQiOjE2NDA2MDk5NjEsImV4cCI6MTY0MDY5NjM2MX0.pex8v74AP7Fm0QhGpD21QXvPJxe82C5k4M0ZWgaTDyw
 -->
