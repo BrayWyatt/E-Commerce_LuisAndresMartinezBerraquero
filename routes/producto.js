@@ -8,5 +8,6 @@ var api = express.Router();
 api.get("", md_auth.ensureAuth, ProductoController.listProducto);
 api.post("/", ProductoController.insProducto);
 api.put("/:id", md_auth.ensureAuth, ProductoController.updProducto);
+api.delete('/:idProducto/:idUsuario', ProductoController.delProducto);
 
 module.exports = api;

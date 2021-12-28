@@ -108,6 +108,33 @@ function updProducto(req, res) {
     }
   }
   
+  function delProducto(req, res) {
+    var idProducto = req.params.idProducto;
+    var idUsuario = req.params.idUsuario;
+
+    var producto = new Producto();
+    try {
+        producto._id = mongoose.Types.ObjectId(idProducto);
+        producto.estado = false;
+        producto.feActualiza = new Date();
+        producto.usuActualiza = mongoose.Types.ObjectId(idUsuario);
+
+        Producto.findByIdAndUpdate({ _id: producto._id }, producto)
+            .then((producto, err) => {
+                if (err) {
+                    res.status(500).send({ message: JSON.stringify(err) });
+                } else {
+                    res.status(204).send();
+                }
+            });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({
+            message: "Error al guardar el producto",
+            detail: JSON.stringify(err),
+        });
+    }
+}
 //#region [Util]
 // Formateando
 function listConvert(items) {
@@ -138,4 +165,5 @@ module.exports = {
   listProducto: listProducto,
   insProducto,
   updProducto,
+  delProducto,
 };
