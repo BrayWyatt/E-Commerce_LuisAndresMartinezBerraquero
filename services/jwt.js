@@ -4,7 +4,6 @@ var moment = require('moment');
 var secret = 'clave_secreta';
 
 exports.createToken = function (usuario) {
-    console.log('JSCJ USUARIO');
     var payload = {
         id: usuario._id,
         nombres: usuario.nombres,

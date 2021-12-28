@@ -6,5 +6,6 @@ const md_auth = require('../middlewares/authenticated');
 
 var api = express.Router();
 api.get("", md_auth.ensureAuth, ProductoController.listProducto);
+api.post("/", ProductoController.insProducto);
 
 module.exports = api;

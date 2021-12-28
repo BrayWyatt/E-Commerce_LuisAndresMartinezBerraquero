@@ -38,6 +38,19 @@ Authorization: token......
     "UsuActualiza":"6027f66a57ce93d65b089614"
 }
 
+5 INS Usuario => POST
+http://localhost:3977/api/v1/producto
+Headers:
+Authorization: token......
+{
+    "Titulo": "Teclado",
+    "Descripcion": "Teclado Marca Logitech",
+    "Precio": 55,
+    "Categoria":  "61ca84ae8278676464bf627c",
+    "Vendido": 1,
+    "UsuCrea":"6027f66a57ce93d65b089614"
+}
+
 8 List Productos => GET
 http://localhost:3977/api/v1/producto
 Headers:
