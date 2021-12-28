@@ -7,6 +7,8 @@ var app = express();
 
 var usuario_routes = require('./routes/usuario');
 var perfil_routes = require('./routes/perfil');
+var categoria_routes = require('./routes/categoria');
+var producto_routes = require('./routes/producto');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -21,5 +23,7 @@ app.use((req, res, next) => {
 
 app.use('/api/v1/usuario', usuario_routes);
 app.use('/api/v1/perfil', perfil_routes);
+app.use('/api/v1/categoria', categoria_routes);
+app.use('/api/v1/producto', producto_routes);
 
 module.exports = app;

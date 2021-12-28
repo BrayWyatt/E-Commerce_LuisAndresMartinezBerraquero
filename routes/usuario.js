@@ -7,6 +7,6 @@ const md_auth = require('../middlewares/authenticated');
 var api = express.Router();
 api.post("/login", UsuarioController.loginUsuario);
 api.post("/", UsuarioController.insUsuario);
-api.put("/:id", md_auth.ensureAuth, UsuarioController.updUsuario); //--> Token
+api.put("/:id", md_auth.ensureAuth, UsuarioController.updUsuario);
 
 module.exports = api;
