@@ -74,6 +74,40 @@ function insProducto(req, res) {
   }
 }
 
+function updProducto(req, res) {
+    var idProducto = req.params.id;
+    var params = req.body;
+  
+    var producto = new Producto();
+    producto.titulo = params.Titulo;
+    producto.descripcion = params.Descripcion;
+    producto.precio = params.Precio;
+    producto.categoria = mongoose.Types.ObjectId(params.Categoria);
+    producto.vendido = params.Vendido;
+    producto.feActualiza = new Date();
+    producto.usuActualiza = mongoose.Types.ObjectId(params.UsuActualiza);
+  
+    if (producto.titulo != null && producto.descripcion != null) {
+      Producto.findByIdAndUpdate(idProducto, producto, (err, productoUpdated) => {
+        if (err) {
+          res.status(500).send({
+            message: "Error al actualizar el producto",
+            detail: JSON.stringify(err),
+          });
+        } else {
+          if (!productoUpdated) {
+            res.status(404).send({
+              message: "No se ha actualizado el producto",
+              detail: "",
+            });
+          } else {
+            res.status(204).send();
+          }
+        }
+      });
+    }
+  }
+  
 //#region [Util]
 // Formateando
 function listConvert(items) {
@@ -103,4 +137,5 @@ function getConvert(item) {
 module.exports = {
   listProducto: listProducto,
   insProducto,
+  updProducto,
 };
