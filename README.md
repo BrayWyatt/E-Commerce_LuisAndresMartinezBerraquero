@@ -73,6 +73,16 @@ http://localhost:3977/api/v1/producto
 Headers:
 Authorization: token......
 
+9 Listo Productos Filtrados x +Vendidos | Precio | Titulo | Descripcion
+http://localhost:3977/api/v1/producto/true/ / / 
+http://localhost:3977/api/v1/producto/true/85/ / 
+http://localhost:3977/api/v1/producto/true/ /tecla/ 
+http://localhost:3977/api/v1/producto/true/ / /logi
+http://localhost:3977/api/v1/producto/true/85/Teclado/Teclado
+Headers:
+Authorization: token......
+
+
 11 List Productos by Categoria => GET
 http://localhost:3977/api/v1/producto/61ca84ae8278676464bf627c
 Headers:

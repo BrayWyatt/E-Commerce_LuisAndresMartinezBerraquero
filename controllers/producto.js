@@ -141,7 +141,7 @@ function listProductoByCategoria(req, res) {
   var idCategoria = req.params.idCategoria;
 
   Producto.find({
-    categoria: mongoose.Types.ObjectId(idCategoria)
+    categoria: mongoose.Types.ObjectId(idCategoria),
   }).exec((err, producto) => {
     if (err) {
       console.log(err);
@@ -157,6 +157,59 @@ function listProductoByCategoria(req, res) {
   });
 }
 
+function listProductoFiltro(req, res) {
+  var vendido = req.params.vendido;
+  var precio = req.params.precio;
+  var titulo = req.params.titulo;
+  var descripcion = req.params.descripcion;
+
+  var queryAnd = {
+    estado: true,
+  };
+
+  if (precio.trim() != "") {
+    queryAnd.precio = precio;
+  }
+  if (titulo.trim() != "") {
+    queryAnd.titulo = { $regex: ".*" + titulo + ".*", $options: "i" };
+  }
+  if (descripcion.trim() != "") {
+    queryAnd.descripcion = { $regex: ".*" + descripcion + ".*", $options: "i" };
+  }
+
+  var query = {
+    $and: [queryAnd],
+  };
+
+  var mySort = null;
+  if (vendido == "true") {
+    mySort = { vendido: -1 };
+  }
+
+  Producto.find(query)
+    .populate([
+      {
+        path: "categoria",
+        models: "Categoria",
+      },
+    ])
+    .sort(mySort)
+    .exec((err, producto) => {
+      if (err) {
+        res.status(500).send({ message: JSON.stringify(err) });
+      } else {
+        if (!producto) {
+          res.status(404).send({ message: "No hay lista de productos" });
+        } else {
+          console.log(producto);
+          // res.status(200).send({ anuncio });
+
+          rpta = listConvert(producto);
+          res.status(200).send({ rpta });
+        }
+      }
+    });
+}
 //#region [Util]
 // Formateando
 function listConvert(items) {
@@ -189,4 +242,5 @@ module.exports = {
   updProducto,
   delProducto,
   listProductoByCategoria,
+  listProductoFiltro,
 };
