@@ -296,7 +296,7 @@ function getConvert(item) {
   objRpta.UsuActualiza = item.usuActualiza;
   return objRpta;
 }
-
+//#endregion
 module.exports = {
   listProducto,
   insProducto,
