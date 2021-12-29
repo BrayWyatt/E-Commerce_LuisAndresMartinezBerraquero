@@ -13,7 +13,6 @@ async function insFactura(req, res) {
   var params = req.body;
   var factura = new Factura();
   try {
-    factura._id = new ObjectId();
     factura.serie = params.Serie;
     factura.cliente = mongoose.Types.ObjectId(params.Cliente);
     factura.direccion = params.Direccion;
@@ -22,11 +21,18 @@ async function insFactura(req, res) {
     factura.IVA = params.IVA;
     factura.total = params.Total;
 
-    factura.estado = true;
-    factura.feCrea = new Date();
-    factura.usuCrea = mongoose.Types.ObjectId(params.Cliente);
-    factura.feActualiza = null;
-    factura.usuActualiza = null;
+    if (params.Id && mongoose.Types.ObjectId.isValid(params.Id)) {
+      factura._id = params.Id;
+      factura.feActualiza = new Date();
+      factura.usuActualiza = mongoose.Types.ObjectId(params.Cliente);
+    } else {
+      factura._id = new ObjectId();
+      factura.estado = true;
+      factura.feCrea = new Date();
+      factura.usuCrea = mongoose.Types.ObjectId(params.Cliente);
+      factura.feActualiza = null;
+      factura.usuActualiza = null;
+    }
 
     let rptaFactura = await Factura.updateOne({ _id: factura._id }, factura, {
       upsert: true,
@@ -38,11 +44,17 @@ async function insFactura(req, res) {
       factura.cliente
     );
 
-    res.status(204).send();
+    if (rptaFacturaDetalle == true) {
+      res.status(204).send();
+    } else {
+      res
+        .status(400)
+        .send({ message: "Error al guardar el detalle de factura" });
+    }
   } catch (err) {
     console.log(err);
     res.status(500).send({
-      message: "Error al guardar el anuncio",
+      message: "Error al guardar la factura",
       detail: JSON.stringify(err),
     });
   }

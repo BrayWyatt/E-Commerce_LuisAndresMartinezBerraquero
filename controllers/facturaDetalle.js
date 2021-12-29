@@ -10,14 +10,15 @@ async function insFacturaDetalle(LstFacturaDetalle, IdFactura, IdCliente) {
     for (let i = 0; i < LstFacturaDetalle.length; i++) {
       facturaDetalle = new FacturaDetalle();
 
+      facturaDetalle.producto = mongoose.Types.ObjectId(
+        LstFacturaDetalle[i].Producto
+      );
+      facturaDetalle.cantidad = LstFacturaDetalle[i].Cantidad;
+      facturaDetalle.precioUnitario = LstFacturaDetalle[i].PrecioUnitario;
+      facturaDetalle.precioTotal = LstFacturaDetalle[i].PrecioTotal;
+
       if (LstFacturaDetalle[i].Id == null) {
         facturaDetalle._id = new ObjectId();
-        facturaDetalle.producto = mongoose.Types.ObjectId(
-          LstFacturaDetalle[i].Producto
-        );
-        facturaDetalle.cantidad = LstFacturaDetalle[i].Cantidad;
-        facturaDetalle.precioUnitario = LstFacturaDetalle[i].PrecioUnitario;
-        facturaDetalle.precioTotal = LstFacturaDetalle[i].PrecioTotal;
         facturaDetalle.factura = mongoose.Types.ObjectId(IdFactura);
 
         facturaDetalle.estado = true;
