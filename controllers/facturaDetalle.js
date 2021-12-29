@@ -73,6 +73,16 @@ function listFacturaDetalle(req, res) {
     });
 }
 
+async function listFacturaById(idFactura) {
+  var rpta = await FacturaDetalle.find({ factura: idFactura }).populate([
+    {
+      path: "producto",
+      models: "Producto",
+    },
+  ]);
+  return rpta;
+}
+
 //#region [Util]
 // Formateando
 function listConvert(items) {
@@ -109,4 +119,5 @@ function getConvert(item) {
 module.exports = {
   insFacturaDetalle,
   listFacturaDetalle,
+  listFacturaById,
 };
