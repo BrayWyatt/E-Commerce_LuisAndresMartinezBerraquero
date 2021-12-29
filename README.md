@@ -99,5 +99,39 @@ http://localhost:3977/api/v1/categoria
 Headers:
 Authorization: token......
 
+13 Ins Compra => INS
+http://localhost:3977/api/v1/factura
+Headers:
+Authorization: token......
+{
+    "Serie": "003",
+    "Cliente": "61cbece4254c73a56e26b051",
+    "Direccion": "Calle Maestro Alonso 3",
+    "NIF": "1111111A",
+    "BaseImponible": 152.89,
+    "IVA": 32.11,
+    "Total": 185,
+    "Detalle": [
+        {
+            "Producto": "61ca882b8278676464bf627f",
+            "Cantidad": 3,
+            "PrecioUnitario": 15,
+            "PrecioTotal": 45
+        },
+        {
+            "Producto": "61ca8d3c6be0a40585ca8228",
+            "Cantidad": 1,
+            "PrecioUnitario": 85,
+            "PrecioTotal": 85
+        },
+        {
+            "Producto": "61caf2131b13cbe694353c8e",
+            "Cantidad": 1,
+            "PrecioUnitario": 55,
+            "PrecioTotal": 55
+        }
+    ]
+}
+
 TOKEN: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjYxYzliOGE5MTE3ZDRhMDA4OTFjYmQyYSIsIm5vbWJyZXMiOiJQUlMwMSIsIm1vdmlsIjoiOTg3NjU0MzIxIiwiZW1haWwiOiJwcnMwMUBnbWFpbC5jb20iLCJpYXQiOjE2NDA2MDk5NjEsImV4cCI6MTY0MDY5NjM2MX0.pex8v74AP7Fm0QhGpD21QXvPJxe82C5k4M0ZWgaTDyw
 -->

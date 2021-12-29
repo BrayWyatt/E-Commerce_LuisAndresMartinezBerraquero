@@ -9,6 +9,8 @@ var usuario_routes = require('./routes/usuario');
 var perfil_routes = require('./routes/perfil');
 var categoria_routes = require('./routes/categoria');
 var producto_routes = require('./routes/producto');
+var factura_routes = require('./routes/factura');
+var facturaDetalle_routes = require('./routes/facturaDetalle');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -25,5 +27,7 @@ app.use('/api/v1/usuario', usuario_routes);
 app.use('/api/v1/perfil', perfil_routes);
 app.use('/api/v1/categoria', categoria_routes);
 app.use('/api/v1/producto', producto_routes);
+app.use('/api/v1/factura', factura_routes);
+app.use('/api/v1/factura-detalle', facturaDetalle_routes);
 
 module.exports = app;

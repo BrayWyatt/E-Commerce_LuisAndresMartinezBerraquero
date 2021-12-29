@@ -230,9 +230,8 @@ function listProductoFiltro(req, res) {
         if (!producto) {
           res.status(404).send({ message: "No hay lista de productos" });
         } else {
-          console.log(producto);
+          // console.log(producto);
           // res.status(200).send({ anuncio });
-
           rpta = listConvert(producto);
           res.status(200).send({ rpta });
         }
@@ -297,7 +296,7 @@ function getConvert(item) {
   objRpta.UsuActualiza = item.usuActualiza;
   return objRpta;
 }
-
+//#endregion
 module.exports = {
   listProducto,
   insProducto,
