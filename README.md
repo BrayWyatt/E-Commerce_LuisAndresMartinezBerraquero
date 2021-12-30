@@ -1,5 +1,5 @@
 # Reto Final. E-Commerce
-
+PDF [aquí](https://firebasestorage.googleapis.com/v0/b/ecommerce-ebc59.appspot.com/o/Reto%20Final%20Backend%20E-Commerce%20-%20BTC%20Backend%20(1).pdf?alt=media&token=281498dc-75ba-4035-a0bc-9f7a943f718c)
 ## Tecnologías usadas:
 * NodeJS
 * Express
@@ -61,6 +61,7 @@ npm i
 
 
 ## POSTMAN:
+Proyecto [aquí](https://firebasestorage.googleapis.com/v0/b/ecommerce-ebc59.appspot.com/o/Ecom.postman_collection.json?alt=media&token=3e8ae1e1-4183-4ef2-9faf-a330b9dd53e0)
 * Endpoint de Login *(1)*
 ```
 POST: http://localhost:3977/api/v1/usuario/login
